@@ -3,12 +3,12 @@
     text-align: center;
 }
 
-.hero-img{
+.item-img{
     position: relative;
     overflow: hidden;
 }
 
-.hero-img:hover .description{
+.item-img:hover .description{
     top: 0;
 }
 
