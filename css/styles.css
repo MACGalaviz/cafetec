@@ -1,6 +1,7 @@
 
 .main-title{
     text-align: center;
+    color: white;
 }
 
 .item-img{
@@ -29,3 +30,33 @@
     margin: 0;
     padding: 1em;
 }
+Body
+{
+    background-color: #5A1A0AF2;
+}
+nav.navbar {
+    background-color: #FF8A29;
+}
+
+#item1
+{
+    border-color:#A3A502;
+    background-color: white;
+    margin: 10px;
+}
+
+#item2
+{
+    border-color: #C92901;
+    background-color: white;
+    margin: 10px;
+
+}
+#item3
+{
+    border-color: #FF9B04;
+    background-color: white;
+    margin: 10px;
+}
+
+

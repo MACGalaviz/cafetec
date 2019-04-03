@@ -8,13 +8,41 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
+<body >
 
-<h1 class="main-title">Men&uacute</h1>
-<div>
-    <input type="search" id="host" placeholder="host">
-</div>
-<div id="content" class="ed-container"></div>
+<nav class="navbar navbar-expand-lg navbar-light colornb">
+    <a class="navbar-brand" aria-disabled="true" href="#">CafeTec</a>
+    <a class="nav-link disabled" aria-disabled="true">Nombre de usuario</a>
+    <a class="nav-link disabled" aria-disabled="true">Monedero $53.18</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Host"  id="host" aria-label="Search">
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Carrito</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Opci&oacutenes
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">Iniciar sesión</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Cambiar contrase&ntildea</a>
+                    <a class="dropdown-item" href="#">Cerrar sesión</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<h1 class="main-title colorbg">Men&uacute</h1>
+
+<div id="content" class="ed-container colorbg"></div>
 
 <script src="js/jquery-3.3.1.min.js"></script>
 <script src="js/popper.min.js"></script>

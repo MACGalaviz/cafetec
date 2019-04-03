@@ -20,8 +20,17 @@ const getConnection = host => {
 
 const useData = () =>{
     const data = JSON.parse(localStorage.getItem("data"));
+    let count =1;
     data.forEach(e=>{
         drawItem(e);
+        let divItem = document.getElementById("divItem");
+        divItem.setAttribute("id","item"+count);
+        count++;
+        if (count === 4)
+        {
+            count = 1;
+        }
+
     })
 };
 
@@ -32,10 +41,12 @@ const drawItem = e =>{
     
     
     <div class="ed-item l-1-3">
+        <div id="divItem" class="rounded border">
         <h3>${e.name}</h3>
         <div class="item-img">
             <p >${e.description}</p>
             <p >${e.price}</p>
+        </div>
         </div>
     </div>
     `;
