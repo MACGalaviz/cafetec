@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>function load(){
+        console.log("Document Loaded");
+        document.addEventListener("DOMContentLoaded",load);
+    }</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>CafeTec</title>
@@ -12,8 +16,8 @@
 
 <nav class="navbar navbar-expand-lg navbar-light colornb">
     <a class="navbar-brand" aria-disabled="true" href="#">CafeTec</a>
-    <a class="nav-link disabled" aria-disabled="true">Nombre de usuario</a>
-    <a class="nav-link disabled" aria-disabled="true">Monedero $53.18</a>
+    <a class="nav-link disabled" aria-disabled="true" id="userNameText" style="display: none">Nombre de usuario</a>
+    <a class="nav-link disabled" aria-disabled="true" id="userCashText" style="display: none">Monedero $53.18</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -22,24 +26,50 @@
             <li class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2" type="search" placeholder="Host"  id="host" aria-label="Search">
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Carrito</a>
+            <li class="form-inline my-2 my-lg-0">
+                <a class="nav-link" id="carritoButton" style="display: none" href="#">Carrito</a>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Opci&oacutenes
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Iniciar sesión</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Cambiar contrase&ntildea</a>
-                    <a class="dropdown-item" href="#">Cerrar sesión</a>
-                </div>
+            <li class="nav-item">
+                <button class="button btn-primary" data-toggle="modal" data-target="#loginModal" id="btnLogin">Iniciar sesión</button>
+            </li>
+            <li class="nav-item">
+                <button class="button btn-primary" id="btnChangePassword" style="display: none">Cambiar contrase&ntildea</button>
+            </li>
+            <li class="form-inline my-2 my-lg-0">
+                <button class="button btn-primary" id="btnLogOut" style="display: none">Cerrar sesión</button>
             </li>
         </ul>
     </div>
 </nav>
 
+<!-- Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Login</h5>
+                <button id="modalClose" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="userInput">Usuario</label>
+                        <input type="text" class="form-control" id="userInput" placeholder="Usuario">
+                    </div>
+                    <div class="form-group">
+                        <label for="passwordInput">Contraseña</label>
+                        <input type="password" class="form-control" id="passwordInput" placeholder="Contraseña">
+                    </div>
+                    <div class="form-group text-center">
+                        <button class="btn btn-primary" type="button" onclick="login();">Iniciar Sesi&oacuten</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <h1 class="main-title colorbg">Men&uacute</h1>
 
 <div id="content" class="ed-container colorbg"></div>
@@ -49,5 +79,6 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="js/md5.js"></script>
 <script src="js/script.js"></script>
+<script src="js/login.js"></script>
 </body>
 </html>
