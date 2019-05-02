@@ -32,29 +32,29 @@
 }
 Body
 {
-    background-color: #5A1A0A;
+    background-color: white;
 }
 nav.navbar {
-    background-color: #FF8A29;
+    background-color: #343a40;
 }
 
 #item1
 {
-    border-color:#A3A502;
+    border-color:#28a745;
     background-color: white;
     margin: 10px;
 }
 
 #item2
 {
-    border-color: #C92901;
+    border-color: #dc3545;
     background-color: white;
     margin: 10px;
 
 }
 #item3
 {
-    border-color: #FF9B04;
+    border-color: #ffc107;
     background-color: white;
     margin: 10px;
 }

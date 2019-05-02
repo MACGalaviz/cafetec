@@ -3,13 +3,6 @@
 // console.log(loginForm);
 //import * as host from "./script";
 
-let userNameText = document.getElementById("userNameText");
-let userCashText = document.getElementById("userCashText");
-const btnLogin = document.getElementById("btnLogin");
-const btnChangePassword = document.getElementById("btnChangePassword");
-const btnLogOut = document.getElementById("btnLogOut");
-const btnCarrito = document.getElementById("carritoButton");
-
 function login(){
     let host2 = document.getElementById("host");
     console.log(host2.value.trim());
@@ -23,7 +16,8 @@ function login(){
     const url = `http://${host}:3977/api/user`;
     let data = {control_number: user, password: password};
     console.log(data);
-    fetch(url, {
+
+    /*fetch(url, {
         method: 'POST', // or 'PUT'
         body: JSON.stringify(data), // data can be `string` or {object}!
         headers: {
@@ -33,19 +27,46 @@ function login(){
         .catch(error => console.error('Error:', error))
         .then(response => {
             console.log('Success:',response);
-            sessionStorage.setItem("data",JSON.stringify(response[0]));
-            console.log(sessionStorage.getItem("data"));
-        });
+            localStorage.setItem("userData",JSON.stringify(response[0]));
+            console.log(localStorage.getItem("userData"));
+        });*/
+
+    $.ajax({
+        url: `http://${host}:3977/api/user`,
+        method: 'POST', // or 'PUT'
+        dataType: "json",
+        data: JSON.stringify(data), // data can be `string` or {object}!
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        success: function(response) {
+            //console.log(response);
+            localStorage.setItem("userData",JSON.stringify(response[0]));
+            console.log(JSON.parse(localStorage.getItem("userData")));
+            afterLogin();
+        },
+        error: function() {
+
+            console.log("No se ha podido obtener la información");
+        }
+    });
+
     $('#modalClose').click();
-    afterLogin();
-};
+    //afterLogin();
+}
 //login();
 
 //TODO parametros a login() asignar datos y cerrar sesion
 
 function afterLogin() {
-    const data = JSON.parse(sessionStorage.getItem("data"));
-    console.log(data.control_number);
+    let userNameText = document.getElementById("userNameText");
+    let userCashText = document.getElementById("userCashText");
+    const btnLogin = document.getElementById("btnLogin");
+    const btnChangePassword = document.getElementById("btnChangePassword");
+    const btnLogOut = document.getElementById("btnLogOut");
+    const btnCarrito = document.getElementById("btnCarrito");
+    const userData = JSON.parse(localStorage.getItem("userData"));
+    console.log(userData);
 
     //Mostrar en html
     userNameText.style.display = "";
@@ -58,8 +79,31 @@ function afterLogin() {
     btnLogin.style.display = "none";
 
     // mostrar
-    userNameText.innerText = data.control_number;
-    userCashText.innerText = data.cash;
+    userNameText.innerText = "#Control: "+userData.control_number;
+    userCashText.innerText = "Monedero: $"+userData.cash;
 
 }
 
+function logOut(){
+    let userNameText = document.getElementById("userNameText");
+    let userCashText = document.getElementById("userCashText");
+    const btnLogin = document.getElementById("btnLogin");
+    const btnChangePassword = document.getElementById("btnChangePassword");
+    const btnLogOut = document.getElementById("btnLogOut");
+    const btnCarrito = document.getElementById("btnCarrito");
+    localStorage.removeItem("userData");
+    // Ocultar en html
+    userNameText.style.display = "none";
+    userCashText.style.display = "none";
+    btnChangePassword.style.display = "none";
+    btnLogOut.style.display="none";
+    btnCarrito.style.display="none";
+
+    // Mostrar en html
+    btnLogin.style.display = "";
+    location.reload();
+}
+
+if(localStorage.getItem("userData")){
+ afterLogin();
+}
