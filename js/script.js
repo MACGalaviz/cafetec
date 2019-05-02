@@ -37,7 +37,7 @@ function useData(){
         });
     }else{
         content.innerHTML = "";
-        const error = `
+        /*const error = `
     
     
         <div class="ed-item l-1-3">
@@ -48,7 +48,17 @@ function useData(){
         </div>
         `;
             content.insertAdjacentHTML('beforeEnd',error);
+    */
+        setTimeout(function (){Swal.fire({
+            title: 'No se encontró el menú',
+            html: 'Lamentablemente no logramos encontrar el menú en su dispositivo,<br>te pedimos que te conectes a internet para poder descargarlo.<br> Una disculpa...',
+            type: 'warning',
+            onClose: () => {
+                getConnection("localhost");
+            }
+        })},5000);
     }
+
 
 }
 

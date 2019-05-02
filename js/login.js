@@ -7,8 +7,8 @@ function login(){
     let host2 = document.getElementById("host");
     console.log(host2.value.trim());
     let host = host2.value.trim();
-    const userInput = document.getElementById("userInput");
-    const passwordInput = document.getElementById("passwordInput");
+    let userInput = document.getElementById("userInput");
+    let passwordInput = document.getElementById("passwordInput");
     let user = userInput.value.trim();
     console.log(user);
     let password = passwordInput.value.trim();
@@ -40,18 +40,36 @@ function login(){
             'Content-Type': 'application/json'
         },
         success: function(response) {
-            //console.log(response);
-            localStorage.setItem("userData",JSON.stringify(response[0]));
-            console.log(JSON.parse(localStorage.getItem("userData")));
-            afterLogin();
+            console.log(response);
+            if(response.length == 0){
+                Swal.fire({
+                    title: 'Uy, seguro que eres tu?',
+                    text: 'Ese usuario y/o contraseña no se encuentran en nuestra base de datos.',
+                    type: 'error'
+                })
+            }else{
+                localStorage.setItem("userData",JSON.stringify(response[0]));
+                console.log(JSON.parse(localStorage.getItem("userData")));
+                afterLogin();
+                Swal.fire({
+                    title: 'Lo lograste!',
+                    text: 'has iniciado sesión correctamente, felicidades!',
+                    type: 'success'
+                })
+            }
         },
         error: function() {
-
-            console.log("No se ha podido obtener la información");
+            Swal.fire({
+                title: 'Comprueba tu conexión...',
+                text: 'Será posible que no cuentes con una conexión a internet?, o datos...',
+                type: 'question'
+            })
         }
     });
 
     $('#modalClose').click();
+    userInput.value = "";
+    passwordInput.value = "";
     //afterLogin();
 }
 //login();
@@ -101,7 +119,7 @@ function logOut(){
 
     // Mostrar en html
     btnLogin.style.display = "";
-    location.reload();
+    //location.reload();
 }
 
 if(localStorage.getItem("userData")){
