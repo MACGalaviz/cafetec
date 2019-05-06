@@ -9,7 +9,7 @@ function getConnection(host) {
             //console.log("response"+response);
             localStorage.setItem("itemData",response);
             //console.log(localStorage.getItem("itemData"));
-            console.log(JSON.parse(localStorage.getItem("itemData")));
+            //console.log(JSON.parse(localStorage.getItem("itemData")));
             useData();
         },
         error: function() {
@@ -126,15 +126,15 @@ function getItem(id) {
     //$items.appendChild(miNodo);
     content.insertAdjacentHTML('beforeEnd',modalItem);*/
 
-    let itemData = JSON.parse(localStorage.getItem("itemData"));
-    let itemData1 = itemData[id];
-    console.log(itemData1);
+    let Data = JSON.parse(localStorage.getItem("itemData"));
+    let itemData = Data[id];
+    //console.log(itemData1);
 
-    if(itemData1['type_id'] === 1)
+    if(itemData['type_id'] === 1)
     {
         Swal.fire({
-            title: "Deseas agregar "+itemData1['name']+" al carrito?",
-            text: "Precio: $"+itemData1['price']+"pesos.",
+            title: "Deseas agregar "+itemData['name']+" al carrito?",
+            text: "Precio: $"+itemData['price']+"pesos.",
             type: 'question',
             showCancelButton: true,
             confirmButtonColor: '#28a745',
@@ -150,7 +150,7 @@ function getItem(id) {
                         +"Hay algo en específico que quisiera agregar?"
                         +"Si no le gusta algun condimento o adereso con el que se elabora el producto, háznoslo saber!.",*/
                     html: "<p>Si no le gusta algún condimento o adereso con el que se elabora el producto, háznoslo saber!.</p>" +
-                        "<p><textarea id='itemSpecific' class='form-control' placeholder='Hay algo qué específicar sobre tu orden?'></textarea></p>",
+                        "<p><textarea id='itemTextArea' class='form-control' placeholder='Hay algo qué específicar sobre tu orden?'></textarea></p>",
                     type: 'question',
                     showCancelButton: true,
                     confirmButtonColor: '#28a745',
@@ -159,6 +159,7 @@ function getItem(id) {
                     cancelButtonText: 'Mejor no...'
                 }).then((result) => {
                     if (result.value) {
+                        jsonCarrito(itemData,document.getElementById("itemTextArea").value);
                         Swal.fire(
                             'Agregado al carrito!',
                             'Su producto ha sido agregado al carrito.',
@@ -170,8 +171,8 @@ function getItem(id) {
         })
     }else{
         Swal.fire({
-            title: "Deseas agregar "+itemData1['name']+" al carrito?",
-            text: "Precio: $"+itemData1['price']+"pesos.",
+            title: "Deseas agregar "+itemData['name']+" al carrito?",
+            text: "Precio: $"+itemData['price']+"pesos.",
             type: 'question',
             showCancelButton: true,
             confirmButtonColor: '#28a745',
@@ -180,6 +181,7 @@ function getItem(id) {
             cancelButtonText: 'No, gracias.'
         }).then((result) => {
             if (result.value) {
+                jsonCarrito(itemData,"");
                 Swal.fire(
                     'Agregado al carrito!',
                     'Su producto ha sido agregado al carrito.',
@@ -188,6 +190,52 @@ function getItem(id) {
             }
         })
     }
+}
 
+function jsonCarrito(producto,itemTextArea){
 
+    let jsonC = JSON.parse(localStorage.getItem("jsonCarrito"));
+    //console.log(jsonC);
+    if(jsonC != null)
+    {
+        //console.log("if");
+        let jsonTemp =
+            {
+                id: producto["id"],
+                name: producto["name"],
+                code_number: producto["code_number"],
+                price: producto["price"],
+                details: itemTextArea
+            };
+
+        jsonC = JSON.parse(localStorage.getItem("jsonCarrito"));
+        jsonC.orden.push(jsonTemp);
+        localStorage.setItem("jsonCarrito",JSON.stringify(jsonC));
+        jsonC = JSON.parse(localStorage.getItem("jsonCarrito"));
+        console.log(jsonC);
+
+    }else{
+        let jsonTemp = {orden:[
+                {
+                    id: producto["id"],
+                    name: producto["name"],
+                    code_number: producto["code_number"],
+                    price: producto["price"],
+                    details: itemTextArea
+                }
+            ]};
+        jsonC = JSON.stringify(jsonTemp);
+        //console.log(jsonTemp);
+        localStorage.setItem("jsonCarrito",jsonC);
+        /*jsonC = JSON.parse(localStorage.getItem("jsonCarrito"));
+        console.log(jsonC);*/
+    }
+}
+
+function carrito(){
+    jsonC = JSON.parse(localStorage.getItem("jsonCarrito"));
+    console.log(jsonC.orden);
+        jsonC.orden.forEach(e=>{
+            alert(e.name+" $"+e.price+" "+e.details)
+    })
 }
